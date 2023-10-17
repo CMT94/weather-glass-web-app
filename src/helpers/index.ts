@@ -46,13 +46,3 @@ export const getPop = (value: number): string => {
 
   return "High probability";
 };
-
-export const getSearchOptions = async (search: string) => {
-  if (search.length > 0) {
-    fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${search.trim()}&limit=5&appid=${
-        process.env.REACT_APP_API_KEY
-      }`
-    );
-  }
-};
