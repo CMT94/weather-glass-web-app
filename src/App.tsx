@@ -1,13 +1,25 @@
 import React from "react";
 
 import SearchForm from "./components/Icons/SearchForm";
-import { getSearchOptions } from "./helpers";
+import { SearchOption } from "./types";
 
 const App = (): JSX.Element => {
   const [searchInputValue, setSearchInputValue] = React.useState<string>("");
+  const [searchOptions, setSearchOptions] = React.useState<SearchOption[]>([]);
+
+  const getSearchOptions = async (search: string) => {
+    fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${search.trim()}&limit=5&appid=${
+        process.env.REACT_APP_API_KEY
+      }`
+    )
+      .then((res) => res.json())
+      .then((data) => setSearchOptions(data));
+  };
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
+    if (e.target.value === "") return;
 
     getSearchOptions(e.target.value);
   };
@@ -26,6 +38,7 @@ const App = (): JSX.Element => {
         <div className="flex mt-10 md:mt-4">
           <SearchForm
             inputValue={searchInputValue}
+            options={searchOptions}
             onChangeHandler={handleChangeInput}
           />
         </div>
