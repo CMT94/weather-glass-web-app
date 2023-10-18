@@ -46,3 +46,18 @@ export const getPop = (value: number): string => {
 
   return "High probability";
 };
+
+export const truncateString = (text: string): string => {
+  let truncatedStr = "";
+  if (!text || text === "") {
+    return "";
+  }
+
+  if (text.length > 10) {
+    truncatedStr = text.slice(0, 10) + "...";
+  } else {
+    truncatedStr = text;
+  }
+
+  return truncatedStr;
+};
