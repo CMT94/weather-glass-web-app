@@ -6,6 +6,9 @@ import { SearchOption } from "./types";
 const App = (): JSX.Element => {
   const [searchInputValue, setSearchInputValue] = React.useState<string>("");
   const [searchOptions, setSearchOptions] = React.useState<SearchOption[]>([]);
+  const [selectedCity, setSelectedCity] = React.useState<SearchOption | null>(
+    null
+  );
 
   const getSearchOptions = async (search: string) => {
     fetch(
@@ -27,6 +30,27 @@ const App = (): JSX.Element => {
     getSearchOptions(e.target.value);
   };
 
+  const handleSubmit = (selectedCity: SearchOption | null) => {
+    if (!selectedCity) return;
+    getCityForecast(selectedCity);
+  };
+
+  const getCityForecast = (city: SearchOption) => {
+    const { lat, lon } = city;
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  };
+
+  React.useEffect(() => {
+    if (selectedCity) {
+      setSearchInputValue(selectedCity.name);
+      setSearchOptions([]);
+    }
+  }, [selectedCity]);
+
   return (
     <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
       <section className="w-full md:max-w-[500px] p-4 flex flex-col text-center items-center justify-center md:px-10 lg:p-24 h-full lg:h-[500px] bg-white bg-opacity-20 backdrop-blur-lg drop-shadow-lg rounded text-zinc-700">
@@ -42,7 +66,10 @@ const App = (): JSX.Element => {
           <SearchForm
             inputValue={searchInputValue}
             options={searchOptions}
+            selectedCity={selectedCity}
+            updateSelectedCity={setSelectedCity}
             onChangeHandler={handleChangeInput}
+            onSubmitHandler={handleSubmit}
           />
         </div>
       </section>

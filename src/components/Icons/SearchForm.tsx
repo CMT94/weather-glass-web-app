@@ -9,13 +9,23 @@ interface SearchFormProps {
   inputValue: string;
   options: SearchOption[];
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmitHandler: (selectedCity: SearchOption | null) => void;
+  selectedCity: SearchOption | null;
+  updateSelectedCity: React.Dispatch<React.SetStateAction<SearchOption | null>>;
 }
 
 const SearchForm = ({
   inputValue,
-  onChangeHandler,
   options,
+  onChangeHandler,
+  onSubmitHandler,
+  selectedCity,
+  updateSelectedCity,
 }: SearchFormProps): JSX.Element => {
+  const onSelectHandler = (option: SearchOption) => {
+    updateSelectedCity(option);
+  };
+
   return (
     <React.Fragment>
       <input
@@ -27,8 +37,11 @@ const SearchForm = ({
       <ul className="absolute top-9 bg-white my-1 rounded-md w-full">
         {options.map((option: SearchOption, optionIndex: number) => (
           <li key={optionIndex} className="w-full">
-            <button className="flex items-center justify-between w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer">
-              <span className="text-left text-sm ">{option.name}</span>
+            <button
+              className="flex items-center justify-between w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer"
+              onClick={() => onSelectHandler(option)}
+            >
+              <span className="text-sm">{option.name}</span>
               <span className="text-xs">
                 {truncateString(option.state)} - {option.country}
               </span>
@@ -37,7 +50,13 @@ const SearchForm = ({
         ))}
       </ul>
 
-      <button className="rounded-r-md border-2 border-zinc-100 text-zinc-100 px-2 py-1 cursor-pointer">
+      <button
+        className={`rounded-r-md border-2 border-zinc-100 text-zinc-100 px-2 py-1 ${
+          !selectedCity ? "cursor-default" : "cursor-pointer"
+        }`}
+        onClick={() => onSubmitHandler(selectedCity)}
+        disabled={!selectedCity}
+      >
         <BiSearch size={20} />
       </button>
     </React.Fragment>
