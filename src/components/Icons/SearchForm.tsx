@@ -51,8 +51,10 @@ const SearchForm = ({
       </ul>
 
       <button
-        className={`rounded-r-md border-2 border-zinc-100 text-zinc-100 px-2 py-1 ${
-          !selectedCity ? "cursor-default" : "cursor-pointer"
+        className={`rounded-r-md border-2 border-zinc-100 text-zinc-100 px-2 py-1 duration-200 ${
+          !selectedCity
+            ? "cursor-default"
+            : "cursor-pointer hover:bg-zinc-700/20"
         }`}
         onClick={() => onSubmitHandler(selectedCity)}
         disabled={!selectedCity}
