@@ -1,7 +1,7 @@
 import React from "react";
 
 import SearchSection from "./components/SearchSection";
-import { SearchOption } from "./types";
+import { Forecast, SearchOption } from "./types";
 
 const App = (): JSX.Element => {
   const [searchInputValue, setSearchInputValue] = React.useState<string>("");
@@ -9,6 +9,7 @@ const App = (): JSX.Element => {
   const [selectedCity, setSelectedCity] = React.useState<SearchOption | null>(
     null
   );
+  const [forecast, setForecast] = React.useState<Forecast | null>(null);
 
   const getSearchOptions = async (search: string) => {
     fetch(
@@ -52,14 +53,20 @@ const App = (): JSX.Element => {
   }, [selectedCity]);
 
   return (
-    <SearchSection
-      searchInputValue={searchInputValue}
-      searchOptions={searchOptions}
-      selectedCity={selectedCity}
-      updateSelectedCity={setSelectedCity}
-      handleChangeInput={handleChangeInput}
-      handleSubmit={handleSubmit}
-    />
+    <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
+      {forecast ? (
+        <></>
+      ) : (
+        <SearchSection
+          searchInputValue={searchInputValue}
+          searchOptions={searchOptions}
+          selectedCity={selectedCity}
+          updateSelectedCity={setSelectedCity}
+          handleChangeInput={handleChangeInput}
+          handleSubmit={handleSubmit}
+        />
+      )}
+    </main>
   );
 };
 
