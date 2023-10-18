@@ -1,3 +1,4 @@
+import ForecastSection from "./components/ForecastSection";
 import SearchSection from "./components/SearchSection";
 
 import useForecast from "./hooks/useForecast";
@@ -13,11 +14,10 @@ const App = (): JSX.Element => {
     handleSubmit,
   } = useForecast();
 
-  console.log({ forecast });
   return (
     <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
       {forecast ? (
-        <>We have forecast</>
+        <ForecastSection forecastData={forecast} />
       ) : (
         <SearchSection
           searchInputValue={searchInputValue}
