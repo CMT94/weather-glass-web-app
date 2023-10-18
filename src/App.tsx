@@ -19,7 +19,10 @@ const App = (): JSX.Element => {
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
-    if (e.target.value === "") return;
+    if (e.target.value === "") {
+      setSearchOptions([]);
+      return;
+    }
 
     getSearchOptions(e.target.value);
   };
