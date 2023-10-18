@@ -41,7 +41,13 @@ const useForecast = () => {
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
     )
       .then((response) => response.json())
-      .then((data) => setForecast(data));
+      .then((data) => {
+        const forecastData = {
+          ...data.city,
+          list: data.list.slice(0, 16),
+        };
+        setForecast(forecastData);
+      });
   };
 
   React.useEffect(() => {
