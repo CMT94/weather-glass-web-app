@@ -35,7 +35,7 @@ const App = (): JSX.Element => {
           from the dropdown
         </p>
 
-        <div className="flex mt-10 md:mt-4">
+        <div className="relative flex mt-10 md:mt-4">
           <SearchForm
             inputValue={searchInputValue}
             options={searchOptions}
