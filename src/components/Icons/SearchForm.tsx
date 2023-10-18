@@ -3,6 +3,7 @@ import React from "react";
 import { BiSearch } from "react-icons/bi";
 
 import { SearchOption } from "../../types";
+import { truncateString } from "../../helpers";
 
 interface SearchFormProps {
   inputValue: string;
@@ -26,8 +27,11 @@ const SearchForm = ({
       <ul className="absolute top-9 bg-white my-1 rounded-md w-full">
         {options.map((option: SearchOption, optionIndex: number) => (
           <li key={optionIndex} className="w-full">
-            <button className="text-left text-sm w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer">
-              {option.name}
+            <button className="flex items-center justify-between w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer">
+              <span className="text-left text-sm ">{option.name}</span>
+              <span className="text-xs">
+                {truncateString(option.state)} - {option.country}
+              </span>
             </button>
           </li>
         ))}
