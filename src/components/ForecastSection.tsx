@@ -4,6 +4,9 @@ import { Forecast } from "../types";
 
 import ForecastHeader from "./ForecastHeader";
 import ForecastList from "./ForecastList";
+import Sunrise from "./Icons/Sunrise";
+import Sunset from "./Icons/Sunset";
+import { getSunTime } from "../helpers";
 
 interface ForecastSectionProps {
   forecastData: Forecast;
@@ -36,7 +39,17 @@ const ForecastSection = ({
           <ForecastList forecastData={forecastData} />
         </section>
 
-        <section></section>
+        <section className="flex justify-between text-zinc-700">
+          <div className="w-[140px] text-xs font-bold flex flex-col items-center bg-white/20 backdrop-blur-lg rounded drop-shadow-lg py-4 mb-5">
+            <Sunrise />
+            <span className="mt-2">{getSunTime(forecastData.sunrise)}</span>
+          </div>
+
+          <div className="w-[140px] text-xs font-bold flex flex-col items-center bg-white/20 backdrop-blur-lg rounded drop-shadow-lg py-4 mb-5">
+            <Sunset />
+            <span className="mt-2">{getSunTime(forecastData.sunset)}</span>
+          </div>
+        </section>
       </div>
     </div>
   );
