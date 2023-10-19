@@ -61,3 +61,8 @@ export const truncateString = (text: string): string => {
 
   return truncatedStr;
 };
+
+export const dateFormat = (dayTime: number) => {
+  const formatedDate = new Date(dayTime * 1000).getHours();
+  return `${formatedDate}h`;
+};
