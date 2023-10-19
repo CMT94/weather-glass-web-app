@@ -1,5 +1,7 @@
 import { Forecast } from "../types";
 
+import { BiChevronLeft } from "react-icons/bi";
+
 import ForecastHeader from "./ForecastHeader";
 import ForecastList from "./ForecastList";
 import Sunrise from "./Icons/Sunrise";
@@ -17,10 +19,12 @@ import Degree from "./shared/Degree";
 
 interface ForecastSectionProps {
   forecastData: Forecast;
+  resetForecast: () => void;
 }
 
 const ForecastSection = ({
   forecastData,
+  resetForecast,
 }: ForecastSectionProps): JSX.Element => {
   const currentForecast = forecastData.list[0];
   const currentForecastMain = currentForecast.weather[0].main;
@@ -44,7 +48,15 @@ const ForecastSection = ({
   const currentVisibility = currentForecast.visibility;
 
   return (
-    <div className="w-full h-full md:max-w-[500px] py-4 md:py-4 md:px-10 lg:px-24 lg:h-auto bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
+    <div className="relative w-full h-full md:max-w-[500px] py-4 md:py-4 md:px-10 lg:px-24 lg:h-auto bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
+      <div className="absolute top-0 left-0 p-2">
+        <BiChevronLeft
+          size={30}
+          className="text-zinc-700 cursor-pointer"
+          onClick={resetForecast}
+        />
+      </div>
+
       <div className="mx-auto w-[300px]">
         <ForecastHeader
           city={forecastData.name}

@@ -10,6 +10,8 @@ const useForecast = () => {
   );
   const [forecast, setForecast] = React.useState<Forecast | null>(null);
 
+  const resetForecast = () => setForecast(null);
+
   const getSearchOptions = async (search: string) => {
     fetch(
       `https://api.openweathermap.org/geo/1.0/direct?q=${search.trim()}&limit=5&appid=${
@@ -65,6 +67,7 @@ const useForecast = () => {
     setSelectedCity,
     handleChangeInput,
     handleSubmit,
+    resetForecast,
   };
 };
 
