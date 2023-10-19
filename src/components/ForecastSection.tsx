@@ -60,7 +60,7 @@ const ForecastSection = ({
                 src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                 alt={`weather-icon-${item.weather[0].description}`}
               />
-              <p>
+              <p className="text-sm font-bold">
                 <Degree temp={item.main.temp} />
               </p>
             </div>
