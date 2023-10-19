@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Forecast } from "../types";
 
 import ForecastHeader from "./ForecastHeader";
@@ -13,6 +11,7 @@ import {
   getVisibilityValue,
   getWindDirection,
 } from "../helpers";
+
 import Tile from "./shared/Tile";
 import Degree from "./shared/Degree";
 
