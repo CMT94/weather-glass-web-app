@@ -44,3 +44,11 @@ export interface Forecast {
     }
   ];
 }
+
+export type IconType =
+  | "wind"
+  | "feels"
+  | "humidity"
+  | "visibility"
+  | "pressure"
+  | "pop";
