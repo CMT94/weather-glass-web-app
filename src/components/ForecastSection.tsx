@@ -2,10 +2,8 @@ import React from "react";
 
 import { Forecast } from "../types";
 
-import { dateFormat } from "../helpers";
-
-import Degree from "./shared/Degree";
 import ForecastHeader from "./ForecastHeader";
+import ForecastList from "./ForecastList";
 
 interface ForecastSectionProps {
   forecastData: Forecast;
@@ -35,22 +33,10 @@ const ForecastSection = ({
         />
 
         <section className="flex overflow-x-scroll mt-4 pb-2 mb-5">
-          {forecastData.list.map((item, itemIndex) => (
-            <div
-              key={itemIndex}
-              className="inline-block text-center w-[50px] flex-shrink-0"
-            >
-              <p>{itemIndex === 0 ? "Now" : dateFormat(item.dt)}</p>
-              <img
-                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-                alt={`weather-icon-${item.weather[0].description}`}
-              />
-              <p className="text-sm font-bold">
-                <Degree temp={item.main.temp} />
-              </p>
-            </div>
-          ))}
+          <ForecastList forecastData={forecastData} />
         </section>
+
+        <section></section>
       </div>
     </div>
   );
