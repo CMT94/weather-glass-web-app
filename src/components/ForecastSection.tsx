@@ -4,6 +4,10 @@ import { Forecast } from "../types";
 
 import ForecastHeader from "./ForecastHeader";
 import ForecastList from "./ForecastList";
+import Sunrise from "./Icons/Sunrise";
+import Sunset from "./Icons/Sunset";
+import { getSunTime, getWindDirection } from "../helpers";
+import Tile from "./shared/Tile";
 
 interface ForecastSectionProps {
   forecastData: Forecast;
@@ -12,12 +16,18 @@ interface ForecastSectionProps {
 const ForecastSection = ({
   forecastData,
 }: ForecastSectionProps): JSX.Element => {
-  console.log({ forecastData });
   const currentForecast = forecastData.list[0];
   const currentForecastMain = currentForecast.weather[0].main;
   const currentForecastDescription = currentForecast.weather[0].description;
+
   const currentMinTemp = currentForecast.main.temp_min;
   const currentMaxTemp = currentForecast.main.temp_max;
+
+  const currentWindSpeed = Math.round(currentForecast.wind.speed);
+  const currentWindGust = currentForecast.wind.gust.toFixed(1);
+  const currentWindDirection = getWindDirection(
+    Math.round(currentForecast.wind.deg)
+  );
 
   return (
     <div className="w-full h-full md:max-w-[500px] py-4 md:py-4 md:px-10 lg:px-24 lg:h-auto bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
@@ -36,7 +46,24 @@ const ForecastSection = ({
           <ForecastList forecastData={forecastData} />
         </section>
 
-        <section></section>
+        <section className="flex flex-wrap justify-between text-zinc-700">
+          <div className="w-[140px] text-xs font-bold flex flex-col items-center bg-white/20 backdrop-blur-lg rounded drop-shadow-lg py-4 mb-5">
+            <Sunrise />
+            <span className="mt-2">{getSunTime(forecastData.sunrise)}</span>
+          </div>
+
+          <div className="w-[140px] text-xs font-bold flex flex-col items-center bg-white/20 backdrop-blur-lg rounded drop-shadow-lg py-4 mb-5">
+            <Sunset />
+            <span className="mt-2">{getSunTime(forecastData.sunset)}</span>
+          </div>
+
+          <Tile
+            icon="wind"
+            title="Wind"
+            info={`${currentWindSpeed} km/h`}
+            description={`${currentWindDirection}, gusts ${currentWindGust} km/h`}
+          />
+        </section>
       </div>
     </div>
   );
