@@ -3,6 +3,7 @@ import React from "react";
 import { Forecast } from "../types";
 
 import { HiArrowSmUp, HiArrowSmDown } from "react-icons/hi";
+import { dateFormat } from "../helpers";
 
 interface ForecastSectionProps {
   forecastData: Forecast;
@@ -46,6 +47,24 @@ const ForecastSection = ({
               <HiArrowSmDown size={20} /> <Degree temp={currentMinTemp} />
             </p>
           </div>
+        </section>
+
+        <section className="flex overflow-x-scroll mt-4 pb-2 mb-5">
+          {forecastData.list.map((item, itemIndex) => (
+            <div
+              key={itemIndex}
+              className="inline-block text-center w-[50px] flex-shrink-0"
+            >
+              <p>{itemIndex === 0 ? "Now" : dateFormat(item.dt)}</p>
+              <img
+                src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                alt={`weather-icon-${item.weather[0].description}`}
+              />
+              <p>
+                <Degree temp={item.main.temp} />
+              </p>
+            </div>
+          ))}
         </section>
       </div>
     </div>
