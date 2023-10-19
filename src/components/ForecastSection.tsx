@@ -10,6 +10,7 @@ import {
   getHumidityValue,
   getPop,
   getSunTime,
+  getVisibilityValue,
   getWindDirection,
 } from "../helpers";
 import Tile from "./shared/Tile";
@@ -38,10 +39,10 @@ const ForecastSection = ({
   );
 
   const currentHumidity = currentForecast.main.humidity;
-
   const currentPop = Math.round(currentForecast.pop * 100);
-
   const currentClouds = currentForecast.clouds.all;
+  const currentPressure = currentForecast.main.pressure;
+  const currentVisibility = currentForecast.visibility;
 
   return (
     <div className="w-full h-full md:max-w-[500px] py-4 md:py-4 md:px-10 lg:px-24 lg:h-auto bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
@@ -101,6 +102,22 @@ const ForecastSection = ({
             title="Precipitation"
             info={`${Math.round(currentPop)}%`}
             description={`${getPop(currentPop)}, clouds at ${currentClouds}%`}
+          />
+
+          <Tile
+            icon="pressure"
+            title="Pressure"
+            info={`${currentPressure} hPa`}
+            description={`${
+              Math.round(currentPressure) < 1013 ? "Lower" : "Higher"
+            } than standard`}
+          />
+
+          <Tile
+            icon="visibility"
+            title="Visibility"
+            info={`${(currentVisibility / 1000).toFixed()} km`}
+            description={getVisibilityValue(currentVisibility)}
           />
         </section>
       </div>
