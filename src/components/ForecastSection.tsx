@@ -8,6 +8,7 @@ import Sunrise from "./Icons/Sunrise";
 import Sunset from "./Icons/Sunset";
 import { getSunTime, getWindDirection } from "../helpers";
 import Tile from "./shared/Tile";
+import Degree from "./shared/Degree";
 
 interface ForecastSectionProps {
   forecastData: Forecast;
@@ -22,6 +23,8 @@ const ForecastSection = ({
 
   const currentMinTemp = currentForecast.main.temp_min;
   const currentMaxTemp = currentForecast.main.temp_max;
+  const currentFeelsLikeTemp = currentForecast.main.feels_like;
+  const currentTemp = currentForecast.main.temp;
 
   const currentWindSpeed = Math.round(currentForecast.wind.speed);
   const currentWindGust = currentForecast.wind.gust.toFixed(1);
@@ -62,6 +65,17 @@ const ForecastSection = ({
             title="Wind"
             info={`${currentWindSpeed} km/h`}
             description={`${currentWindDirection}, gusts ${currentWindGust} km/h`}
+          />
+
+          <Tile
+            icon="feels"
+            title="Feels like"
+            info={<Degree temp={currentFeelsLikeTemp} />}
+            description={`Feels ${
+              Math.round(currentFeelsLikeTemp) < Math.round(currentTemp)
+                ? "colder"
+                : "warmer"
+            }`}
           />
         </section>
       </div>
