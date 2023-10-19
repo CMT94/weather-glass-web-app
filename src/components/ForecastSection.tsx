@@ -6,7 +6,12 @@ import ForecastHeader from "./ForecastHeader";
 import ForecastList from "./ForecastList";
 import Sunrise from "./Icons/Sunrise";
 import Sunset from "./Icons/Sunset";
-import { getHumidityValue, getSunTime, getWindDirection } from "../helpers";
+import {
+  getHumidityValue,
+  getPop,
+  getSunTime,
+  getWindDirection,
+} from "../helpers";
 import Tile from "./shared/Tile";
 import Degree from "./shared/Degree";
 
@@ -33,6 +38,10 @@ const ForecastSection = ({
   );
 
   const currentHumidity = currentForecast.main.humidity;
+
+  const currentPop = Math.round(currentForecast.pop * 100);
+
+  const currentClouds = currentForecast.clouds.all;
 
   return (
     <div className="w-full h-full md:max-w-[500px] py-4 md:py-4 md:px-10 lg:px-24 lg:h-auto bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
@@ -87,12 +96,12 @@ const ForecastSection = ({
             description={getHumidityValue(currentHumidity)}
           />
 
-          {/* <Tile
+          <Tile
             icon="pop"
-            title="Pop"
-            info={`${currentHumidity}%`}
-            description={getHumidityValue(currentHumidity)}
-          /> */}
+            title="Precipitation"
+            info={`${Math.round(currentPop)}%`}
+            description={`${getPop(currentPop)}, clouds at ${currentClouds}%`}
+          />
         </section>
       </div>
     </div>
