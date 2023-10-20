@@ -48,7 +48,7 @@ const ForecastSection = ({
   const currentVisibility = currentForecast.visibility;
 
   return (
-    <div className="relative w-full h-full md:max-w-[500px] py-4 md:py-4 md:px-10 lg:px-24 lg:h-auto bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
+    <div className="relative w-full min-h-screen md:max-w-[500px] py-4 md:py-4 md:px-10 lg:px-24 bg-white bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg">
       <div className="absolute top-0 left-0 p-2">
         <BiChevronLeft
           size={30}
