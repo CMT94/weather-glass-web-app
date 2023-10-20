@@ -16,7 +16,7 @@ const App = (): JSX.Element => {
   } = useForecast();
 
   return (
-    <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
+    <main className="h-full w-full sm:h-screen flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400">
       {forecast ? (
         <ForecastSection
           forecastData={forecast}
