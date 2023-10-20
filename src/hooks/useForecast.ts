@@ -36,9 +36,13 @@ const useForecast = () => {
     getSearchOptions(e.target.value);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0 });
+  };
   const handleSubmit = (selectedCity: SearchOption | null) => {
     if (!selectedCity) return;
     getCityForecast(selectedCity);
+    scrollToTop();
   };
 
   const getCityForecast = (city: SearchOption) => {
