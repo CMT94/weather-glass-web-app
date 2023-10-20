@@ -10,7 +10,11 @@ const useForecast = () => {
   );
   const [forecast, setForecast] = React.useState<Forecast | null>(null);
 
-  const resetForecast = () => setForecast(null);
+  const resetForecast = () => {
+    setSearchInputValue("");
+    setSelectedCity(null);
+    setForecast(null);
+  };
 
   const getSearchOptions = async (search: string) => {
     fetch(
